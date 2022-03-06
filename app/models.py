@@ -13,8 +13,7 @@ class User (UserMixin, db.Model):
 
 class Pitch (db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    content = db.Column(db.String(1000), nullable=False)
+    filename = db.Column(db.String(300), nullable=False, default='default.mp4')
     category = db.Column(db.String(100), nullable=False)
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     author = db.Column(db.Integer, db.ForeignKey(

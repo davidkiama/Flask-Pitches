@@ -1,0 +1,21 @@
+{% macro displayPitches(pitches) %}
+
+<div class="content gallery">
+    <ul>
+        {% for pitch in pitches %}
+        <li>
+            <video controls>
+                <source src="../static/uploads/{{pitch.filename}}  ">
+            </video>
+        </li>
+
+        <form action="/create-comment/{{pitch.id}}" method="POST">
+            <input required type="text" name="comment">
+            <input type="submit" value="Add Comment">
+        </form>
+
+        {% endfor %}
+    </ul>
+</div>
+
+{% endmacro %}

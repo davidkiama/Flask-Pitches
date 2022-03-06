@@ -1,4 +1,5 @@
 {% extends "temp.html" %}
+{% import 'macros.html' as macro%}
 
 {% block content %}
 <h1 class="title">
@@ -8,18 +9,7 @@
 
 {% if pitches %}
 
-<div class="content gallery">
-    <ul>
-        {% for pitch in pitches %}
-        <li>
-            <video controls>
-                <source src="../static/uploads/{{pitch.filename}}  ">
-            </video>
-        </li>
-
-        {% endfor %}
-    </ul>
-</div>
+{{macro.displayPitches(pitches)}}
 
 {% else %}
 

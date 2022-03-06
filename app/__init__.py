@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_mail import Mail
+from flask_migrate import Migrate
 
 from .config import config_options
 
@@ -11,9 +12,12 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'Lkey884'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://kiama:kiamapwd@localhost/Pitches'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
 mail = Mail(app)
 
 from .models import User

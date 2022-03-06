@@ -7,3 +7,15 @@ class User (UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
+    profile_pic = db.Column(db.String(), nullable=False, default='default.jpg')
+    pitches = db.relationship('Pitch', backref='user', passive_deletes=True)
+
+
+class Pitch (db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.String(1000), nullable=False)
+    category = db.Column(db.String(100), nullable=False)
+    date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
+    author = db.Column(db.Integer, db.ForeignKey(
+        'user.id', ondelete='CASCADE'), nullable=False)

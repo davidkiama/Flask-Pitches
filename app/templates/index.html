@@ -6,7 +6,11 @@
 {% if pitches %}
 
 {% for pitch in pitches %}
-<p>J</p>
+<p>{{pitch.user.username}} </p>
+<p>#{{pitch.category}} </p>
+<video width="320" height="240" controls>
+    <source src="../static/uploads/{{pitch.filename}}  ">
+</video>
 
 {% endfor %}
 

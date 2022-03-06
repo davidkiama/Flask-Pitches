@@ -55,14 +55,12 @@ def create_pitch():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         if filename and category:
-            
+
             pitch = Pitch(filename=filename, category=category,
                           author=current_user.id)
 
-            return f'{pitch.filename} category {pitch.category} {pitch.author}'
-
-            # db.session.add(pitch)
-            # db.session.commit()
+            db.session.add(pitch)
+            db.session.commit()
 
             return redirect(url_for('main.profile'))
 

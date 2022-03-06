@@ -7,7 +7,7 @@ import os
 
 from app import app
 from . import db
-from .models import Pitch
+from .models import Pitch, Comment
 
 main = Blueprint('main', __name__)
 
@@ -65,3 +65,18 @@ def create_pitch():
             return redirect(url_for('main.profile'))
 
     return render_template('upload_pitch.html', user=current_user)
+
+
+@main.route('/create-comment/<pitch_id>', methods=['POST'])
+@login_required
+def create_comment(pitch_id):
+    comment = request.form.get('comment')
+    pitch = Pitch.query.filter_by(id=pitch_id).first()
+
+    if comment and pitch:
+        new_comment = Comment(comment=comment, author=current_user.id,
+                              pitch_id=pitch_id)
+        db.session.add(new_comment)
+        db.session.commit()
+
+    return redirect(url_for('main.index'))

@@ -1,18 +1,22 @@
-{% extends "base.html" %}
+{% extends "temp.html" %}
 
 {% block content %}
 
 
 {% if pitches %}
 
-{% for pitch in pitches %}
-<p>{{pitch.user.username}} </p>
-<p>#{{pitch.category}} </p>
-<video width="320" height="240" controls>
-    <source src="../static/uploads/{{pitch.filename}}  ">
-</video>
+<div class="content gallery">
+    <ul>
+        {% for pitch in pitches %}
+        <li>
+            <video controls>
+                <source src="../static/uploads/{{pitch.filename}}  ">
+            </video>
+        </li>
 
-{% endfor %}
+        {% endfor %}
+    </ul>
+</div>
 
 {% else %}
 

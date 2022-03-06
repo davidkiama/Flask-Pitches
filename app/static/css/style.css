@@ -1,0 +1,86 @@
+*,
+::before,
+::after {
+  padding: 0%;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 65.5%;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 1.4rem;
+  line-height: 1.6;
+}
+
+#container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.header {
+  flex: 0 0 8rem;
+  background-color: rgba(230, 230, 230, 0.95);
+  box-shadow: 0px 0px 20px -6px rgba(0, 0, 0, 0.25);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+
+  justify-content: right;
+  padding: 1rem;
+}
+
+.navbar-item {
+  text-decoration: none;
+  margin: 0 1rem;
+  font-size: 2rem;
+}
+
+.main {
+  min-height: 100vh;
+  background-color: #e6e6e6;
+}
+
+.gallery {
+  padding: 2rem;
+}
+.gallery ul {
+  display: flex;
+  justify-items: center;
+  flex-wrap: wrap;
+  column-gap: 1%;
+  row-gap: 2rem;
+}
+.gallery li {
+  height: 45vh;
+  max-width: 50vw;
+  list-style: none;
+  flex-grow: 1;
+}
+.gallery li:last-child {
+  flex-grow: 10;
+}
+.gallery video {
+  max-height: 100%;
+  min-width: 100%;
+  object-fit: cover;
+  vertical-align: bottom;
+}
+
+@media only screen and (max-width: 37.5em) {
+  .gallery li {
+    height: auto;
+    width: 100%;
+  }
+  .gallery video {
+    width: 100%;
+    max-height: 50vh;
+  }
+}

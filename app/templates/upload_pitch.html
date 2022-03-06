@@ -7,6 +7,14 @@
 
 
         <h3> Create a pitch</h3>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+        {% endif %}
+        {% endwith %}
         <form method="POST" action="/create_pitch" enctype="multipart/form-data">
 
 

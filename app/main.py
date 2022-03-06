@@ -4,6 +4,7 @@ from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 import os
 
+
 from app import app
 from . import db
 from .models import Pitch
@@ -25,13 +26,13 @@ def profile():
 
 
 # To prevent users from uploading files with malicious extensions, we use the
-ALLOWED_EXTENSIONS = {'MPG', 'MP2', 'MPEG', 'MPE', 'MPV', 'WEBM' 'OGG',
+ALLOWED_EXTENSIONS = {'MPG', 'MP4', 'MPEG', 'MPE', 'MPV', 'WEBM' 'OGG',
                       'AAC', 'WAV', 'WMA', 'MP4', 'AVI', 'MOV', 'WMV', 'FLV', 'SWF', 'M4A'}
 
 
 def allowed_file(filename):
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           filename.rsplit('.', 1)[1].upper() in ALLOWED_EXTENSIONS
 
 
 @main.route('/create_pitch', methods=['GET', 'POST'])
@@ -47,17 +48,14 @@ def create_pitch():
 
         file = request.files['file']
 
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(url_for('main.create_pitch'))
-
         if not allowed_file(file.filename):
-            flash('File extension not allowed')
+            flash('Video only')
             return redirect(url_for('main.create_pitch'))
 
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         if filename and category:
+            
             pitch = Pitch(filename=filename, category=category,
                           author=current_user.id)
 

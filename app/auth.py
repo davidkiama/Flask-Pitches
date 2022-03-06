@@ -60,10 +60,15 @@ def signup_post():
     password = request.form.get('password')
 
     # if this returns a user, then the email already exists in database
-    user = User.query.filter_by(email=email).first()
+    user_by_email = User.query.filter_by(email=email).first()
+    user_by_username = User.query.filter_by(username=username).first()
 
-    if user:  # if user is found,we redirect to try again
-        flash('Email address already exists')
+    if user_by_email:  # if user is found,we redirect to try again
+        flash('Email already exists')
+        return redirect(url_for('auth.signup'))
+
+    if user_by_username:  # if user is found,we redirect to try again
+        flash('Username already taken, try another one')
         return redirect(url_for('auth.signup'))
 
     new_user = User(email=email, username=username,
@@ -76,6 +81,3 @@ def signup_post():
     db.session.commit()
 
     return redirect(url_for("auth.login"))
-
-
-

@@ -19,7 +19,9 @@ def index():
 @main.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html', username=current_user.username)
+
+    pitches = Pitch.query.filter_by(author=current_user.id).all()
+    return render_template('profile.html', username=current_user.username, pitches=pitches)
 
 
 @main.route('/create_pitch', methods=['GET', 'POST'])
@@ -35,7 +37,7 @@ def create_pitch():
                       category=category, author=current_user.id)
         db.session.add(pitch)
         db.session.commit()
-        flash('Pitch added successfully')
+
         return redirect(url_for('main.profile'))
 
     return render_template('upload_pitch.html', user=current_user)

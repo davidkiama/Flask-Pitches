@@ -51,36 +51,40 @@ body {
 .gallery {
   padding: 2rem;
 }
-.gallery ul {
-  display: flex;
-  justify-items: center;
-  flex-wrap: wrap;
-  column-gap: 1%;
-  row-gap: 2rem;
-}
-.gallery li {
-  height: 45vh;
-  max-width: 50vw;
-  list-style: none;
-  flex-grow: 1;
-}
-.gallery li:last-child {
-  flex-grow: 10;
-}
-.gallery video {
-  max-height: 100%;
-  min-width: 100%;
-  object-fit: cover;
-  vertical-align: bottom;
+
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
 }
 
-@media only screen and (max-width: 37.5em) {
-  .gallery li {
-    height: auto;
-    width: 100%;
-  }
-  .gallery video {
-    width: 100%;
-    max-height: 50vh;
-  }
+.active,
+.collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: "\002B";
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
 }

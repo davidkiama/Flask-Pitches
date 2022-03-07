@@ -1,24 +1,48 @@
 {% macro displayPitches(pitches) %}
 
-<div class="content gallery">
-    <ul>
+<div class="gallery">
+    <div class="pitches">
         {% for pitch in pitches %}
-        {% for comment in pitch.comments %}
-        <p> {{comment.text}} </p>
-        {% endfor %}
-        <li>
-            <video controls>
-                <source src="../static/uploads/{{pitch.filename}}  ">
-            </video>
-        </li>
+        <div class="pitch">
+            <h4>{{pitch.user.username}} </h4>
+            <p> {{pitch.text}} </p>
 
-        <form action="/create-comment/{{pitch.id}}" method="POST">
-            <input required type="text" name="text">
-            <input type="submit" value="Add Comment">
-        </form>
 
+            <button class="collapsible">Open Comments</button>
+
+            <div class="content">
+                {% for comment in pitch.comments %}
+                <p>{{comment.user.username}}: {{comment.text}} </p>
+
+                {% endfor %}
+            </div>
+
+
+            <form action="/create-comment/{{pitch.id}}" method="POST">
+                <input required type="text" name="text">
+                <input type="submit" value="Add Comment">
+            </form>
+        </div>
         {% endfor %}
-    </ul>
+
+    </div>
+
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
 </div>
 
 {% endmacro %}

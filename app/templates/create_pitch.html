@@ -15,11 +15,13 @@
         </div>
         {% endif %}
         {% endwith %}
-        <form method="POST" action="/create_pitch" enctype="multipart/form-data">
+        <form method="POST" action="/create_pitch">
 
 
             <div class="field">
-                <input required type="file" name="file">
+
+                <textarea name="text" placeholder="Enter pitch" cols="30"
+                    rows="10"></textarea>
             </div>
             <div class="field">
 

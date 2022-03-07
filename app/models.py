@@ -1,3 +1,4 @@
+from cgitb import text
 from flask_login import UserMixin
 from app import db
 
@@ -14,7 +15,7 @@ class User (UserMixin, db.Model):
 
 class Pitch (db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(300), nullable=False, default='default.mp4')
+    text = db.Column(db.String(255))
     category = db.Column(db.String(100), nullable=False)
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     author = db.Column(db.Integer, db.ForeignKey(
@@ -25,7 +26,7 @@ class Pitch (db.Model):
 
 class Comment (db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    comment = db.Column(db.String(300), nullable=False)
+    text = db.Column(db.String(300), nullable=False)
     date_created = db.Column(db.DateTime, default=db.func.current_timestamp())
     author = db.Column(db.Integer, db.ForeignKey(
         'user.id', ondelete='CASCADE'), nullable=False)

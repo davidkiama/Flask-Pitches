@@ -22,7 +22,8 @@ class DevConfig(Config):
 
 
 class ProdConfig(Config):
-    pass
+    DEBUG = True
+
 
     #  administrator list
 config_options = {

@@ -1,31 +1,39 @@
 {% macro displayPitches(pitches) %}
 
-<div class="gallery">
-    <div class="pitches">
-        {% for pitch in pitches %}
-        <div class="pitch">
-            <h4>{{pitch.user.username}} </h4>
-            <p> {{pitch.text}} </p>
+
+<div class="pitches">
+    {% for pitch in pitches %}
+    <div class="pitch">
+        <h4 class="pitch__username">{{pitch.user.username}} </h4>
+        <p class="pitch__text"> {{pitch.text}} </p>
+
+        <form action="/upvote/{{pitch.id}}" method="POST">
+            <button type="submit">Upvote</button>
+        </form>
+
+        <form action="/downvote/{{pitch.id}}" method="POST">
+            <button type="submit">Downvote</button>
+        </form>
+        <p>upvotes {{pitch.upvotes|length}} </p>
+        <p>downvotes {{pitch.downvotes| length}} </p>
 
 
-            <button class="collapsible">Open Comments</button>
+        <button class="collapsible">{{pitch.comments | length}} Comments</button>
 
-            <div class="content">
-                {% for comment in pitch.comments %}
-                <p>{{comment.user.username}}: {{comment.text}} </p>
-
-                {% endfor %}
-            </div>
-
-
+        <div class="content">
             <form action="/create-comment/{{pitch.id}}" method="POST">
                 <input required type="text" name="text">
                 <input type="submit" value="Add Comment">
             </form>
+            {% for comment in pitch.comments %}
+            <p>{{comment.user.username}}: {{comment.text}} </p>
+
+            {% endfor %}
         </div>
-        {% endfor %}
+
 
     </div>
+    {% endfor %}
 
     <script>
         var coll = document.getElementsByClassName("collapsible");
@@ -43,6 +51,8 @@
             });
         }
     </script>
+
 </div>
+
 
 {% endmacro %}

@@ -8,7 +8,7 @@ import os
 
 from app import app
 from . import db
-from .models import Pitch, Comment
+from .models import Downvote, Pitch, Comment, Upvote
 
 main = Blueprint('main', __name__)
 
@@ -67,3 +67,44 @@ def create_comment(pitch_id):
         db.session.commit()
 
     return redirect(url_for('main.index'))
+
+
+@main.route('/upvote/<pitch_id>', methods=['POST'])
+@login_required
+def upvote(pitch_id):
+    pitch = Pitch.query.filter_by(id=pitch_id).first()
+
+    # check if user has upvoted the pitch
+    if current_user.id in [upvote.user_id for upvote in pitch.upvotes]:
+        # remove the user's upvote
+        print('User has already upvoted')
+        upvote = Upvote.query.filter_by(user_id=current_user.id).first()
+        db.session.delete(upvote)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    else:
+        # add the user's upvote
+        upvote = Upvote(user_id=current_user.id, pitch_id=pitch_id)
+        db.session.add(upvote)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+
+
+@main.route('/downvote/<pitch_id>', methods=['POST'])
+@login_required
+def downvote(pitch_id):
+    pitch = Pitch.query.filter_by(id=pitch_id).first()
+
+    # check if user has downvoted the pitch
+    if current_user.id in [downvote.user_id for downvote in pitch.downvotes]:
+        # remove the user's down
+        downvote = Downvote.query.filter_by(user_id=current_user.id).first()
+        db.session.delete(downvote)
+        db.session.commit()
+        return redirect(url_for('main.index'))
+    else:
+        # add the user's downvote
+        downvote = Downvote(user_id=current_user.id, pitch_id=pitch_id)
+        db.session.add(downvote)
+        db.session.commit()
+        return redirect(url_for('main.index'))

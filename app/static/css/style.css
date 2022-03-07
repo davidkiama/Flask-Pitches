@@ -48,8 +48,16 @@ body {
   background-color: #e6e6e6;
 }
 
-.gallery {
+.pitches {
   padding: 2rem;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.pitch {
+  width: 30rem;
+  max-height: 45rem;
 }
 
 .collapsible {

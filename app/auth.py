@@ -71,13 +71,13 @@ def signup_post():
         flash('Username already taken, try another one')
         return redirect(url_for('auth.signup'))
 
-    new_user = User(email=email, username=username,
-                    password=generate_password_hash(password, method='sha256'))
+    user = User(email=email, username=username,
+                password=generate_password_hash(password, method='sha256'))
 
     send_email(receiver_email=email, username=username)
 
     # add new user to the database
-    db.session.add(new_user)
+    db.session.add(user)
     db.session.commit()
 
     return redirect(url_for("auth.login"))

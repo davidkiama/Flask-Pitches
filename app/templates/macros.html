@@ -7,15 +7,25 @@
         <h4 class="pitch__username">{{pitch.user.username}} </h4>
         <p class="pitch__text"> {{pitch.text}} </p>
 
-        <form action="/upvote/{{pitch.id}}" method="POST">
-            <button type="submit">Upvote</button>
-        </form>
+        <a class="hashtag" href="{{url_for('main.category', category=pitch.category)}} ">
+            #{{pitch.category}} </a>
 
-        <form action="/downvote/{{pitch.id}}" method="POST">
-            <button type="submit">Downvote</button>
-        </form>
-        <p>upvotes {{pitch.upvotes|length}} </p>
-        <p>downvotes {{pitch.downvotes| length}} </p>
+        <div class="pitch__votes">
+            <form action="/upvote/{{pitch.id}}" method="POST">
+                <span> {{pitch.upvotes|length}} </span>
+                <button type="submit" class="btn--upvote">
+                    <img class="svg"
+                        src="{{url_for('static', filename='img/up-svgrepo-com.svg')}}">
+                </button>
+            </form>
+            <form action="/downvote/{{pitch.id}}" method="POST">
+                <span>{{pitch.downvotes| length}} </span>
+                <button type="submit" class="btn--upvote">
+                    <img class="svg"
+                        src="{{url_for('static', filename='img/arrow-download-svgrepo-com.svg')}}">
+                </button>
+            </form>
+        </div>
 
 
         <button class="collapsible">{{pitch.comments | length}} Comments</button>

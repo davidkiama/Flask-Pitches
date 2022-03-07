@@ -108,3 +108,9 @@ def downvote(pitch_id):
         db.session.add(downvote)
         db.session.commit()
         return redirect(url_for('main.index'))
+
+
+@main.route('/category/<category>')
+def category(category):
+    pitches = Pitch.query.filter_by(category=category).all()
+    return render_template('category.html', pitches=pitches, category=category)

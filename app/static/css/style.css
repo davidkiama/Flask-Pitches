@@ -51,13 +51,42 @@ body {
 .pitches {
   padding: 2rem;
   display: flex;
+  row-gap: 5rem;
   justify-content: space-around;
   flex-wrap: wrap;
 }
 
 .pitch {
   width: 30rem;
-  max-height: 45rem;
+  max-height: 30rem;
+  overflow: hidden;
+}
+
+.pitch__text {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.pitch__votes {
+  display: flex;
+  justify-content: space-around;
+}
+
+.pitch form {
+  display: flex;
+  align-items: center;
+}
+
+.btn--upvote {
+  text-decoration: none;
+  border: none;
+  outline: none;
+}
+
+.svg {
+  height: 2rem;
 }
 
 .collapsible {

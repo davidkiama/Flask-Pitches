@@ -55,29 +55,33 @@ def logout():
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup_post():
-    email = request.form.get('email').lower()
-    username = request.form.get('username').lower()
-    password = request.form.get('password')
 
-    # if this returns a user, then the email already exists in database
-    user_by_email = User.query.filter_by(email=email).first()
-    user_by_username = User.query.filter_by(username=username).first()
+    if request.method == 'POST':
 
-    if user_by_email:  # if user is found,we redirect to try again
-        flash('Email already exists')
-        return redirect(url_for('auth.signup'))
+        email = request.form.get('email').lower()
+        username = request.form.get('username').lower()
+        password = request.form.get('password')
 
-    if user_by_username:  # if user is found,we redirect to try again
-        flash('Username already taken, try another one')
-        return redirect(url_for('auth.signup'))
+        # if this returns a user, then the email already exists in database
+        user_by_email = User.query.filter_by(email=email).first()
+        user_by_username = User.query.filter_by(username=username).first()
 
-    user = User(email=email, username=username,
-                password=generate_password_hash(password, method='sha256'))
+        if user_by_email:  # if user is found,we redirect to try again
+            flash('Email already exists')
+            return redirect(url_for('auth.signup'))
 
-    send_email(receiver_email=email, username=username)
+        if user_by_username:  # if user is found,we redirect to try again
+            flash('Username already taken')
+            return redirect(url_for('auth.signup'))
 
-    # add new user to the database
-    db.session.add(user)
-    db.session.commit()
+        user = User(email=email, username=username,
+                    password=generate_password_hash(password, method='sha256'))
 
-    return redirect(url_for("auth.login"))
+        send_email(receiver_email=email, username=username)
+
+        # add new user to the database
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for("auth.login"))
+
+    return render_template('signup.html')

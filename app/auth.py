@@ -19,7 +19,7 @@ def login():
 
 @auth.route('/login', methods=['POST'])
 def login_post():
-    email = request.form.get('email')
+    email = request.form.get('email').lower()
     password = request.form.get('password')
     remember = True if request.form.get('remember') else False
 
@@ -55,8 +55,8 @@ def logout():
 
 @auth.route('/signup', methods=['GET', 'POST'])
 def signup_post():
-    email = request.form.get('email')
-    username = request.form.get('username')
+    email = request.form.get('email').lower()
+    username = request.form.get('username').lower()
     password = request.form.get('password')
 
     # if this returns a user, then the email already exists in database

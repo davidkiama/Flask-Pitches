@@ -74,7 +74,7 @@ def signup_post():
     new_user = User(email=email, username=username,
                     password=generate_password_hash(password, method='sha256'))
 
-    send_email(email, username)
+    send_email(receiver_email=email, username=username)
 
     # add new user to the database
     db.session.add(new_user)

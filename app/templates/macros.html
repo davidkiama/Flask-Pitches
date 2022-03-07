@@ -4,7 +4,7 @@
 <div class="pitches">
     {% for pitch in pitches %}
     <div class="pitch">
-        <h4 class="pitch__username">{{pitch.user.username}} </h4>
+        <h4 class="pitch__username">@{{pitch.user.username}} </h4>
         <p class="pitch__text"> {{pitch.text}} </p>
 
         <a class="hashtag" href="{{url_for('main.category', category=pitch.category)}} ">
@@ -32,8 +32,11 @@
 
         <div class="content">
             <form action="/create-comment/{{pitch.id}}" method="POST">
-                <input required type="text" name="text">
-                <input type="submit" value="Add Comment">
+                <input required type="text" name="text" placeholder="Add comment">
+                <button type="submit" class="btn">
+                    Add
+                </button>
+
             </form>
             {% for comment in pitch.comments %}
             <p>{{comment.user.username}}: {{comment.text}} </p>

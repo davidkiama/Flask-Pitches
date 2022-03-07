@@ -1,44 +1,31 @@
-{% extends "base.html" %}
+{% extends "temp.html" %}
 
 {% block content %}
-<div class="column is-4 is-offset-4">
-    <h3 class="heading-3"> Create a pitch</h3>
-    <div class="box">
 
+<div class="box">
+    <h3 class="heading-3"> Create a Pitch</h3>
 
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}
-        </div>
-        {% endif %}
-        {% endwith %}
-        <form method="POST" action="/create_pitch">
-
-
-            <div class="field">
-
-                <textarea name="text" placeholder="Enter pitch" cols="30"
-                    rows="10"></textarea>
-            </div>
-            <div class="field">
-
-                <select required name="category" class="">
-
-                    <option value="">Select a category</option>
-                    <option value="technology">Technology</option>
-                    <option value="business">Business</option>
-                    <option value="design">Design</option>
-                    <option value="marketing">Marketing</option>
-                    <option value="finance">Finance</option>
-                    <option value="health">Health</option>
-
-                </select>
-
-            </div>
-            <button type="submit"
-                class="button is-block is-info is-large is-fullwidth">Submit</button>
-        </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="notification is-danger">
+        {{ messages[0] }}
     </div>
+    {% endif %}
+    {% endwith %}
+    <form method="POST" action="/create_pitch" class="create-pitch">
+        <textarea name="text" placeholder="Enter pitch" cols="30" rows="7"></textarea>
+
+        <select required name="category" class="select-pitch">
+            <option value="">Select a category</option>
+            <option value="technology">Technology</option>
+            <option value="business">Business</option>
+            <option value="design">Design</option>
+            <option value="marketing">Marketing</option>
+            <option value="finance">Finance</option>
+            <option value="health">Health</option>
+        </select>
+        <button type="submit" class="btn">Submit</button>
+    </form>
 </div>
+
 {% endblock %}

@@ -44,6 +44,10 @@ def create_pitch():
         category = request.form.get('category')
         text = request.form.get('text')
 
+        print(len(text))
+        if len(text) > 255:
+            flash('Pitch is too long. Max 255 characters.')
+            return redirect(url_for('main.create_pitch'))
         pitch = Pitch(text=text, category=category, author=current_user.id)
 
         db.session.add(pitch)

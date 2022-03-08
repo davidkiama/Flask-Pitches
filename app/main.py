@@ -1,10 +1,6 @@
-
-
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
-from werkzeug.utils import secure_filename
 import os
-
 
 from app import app
 from . import db
@@ -24,16 +20,6 @@ def index():
 def profile():
     pitches = Pitch.query.filter_by(author=current_user.id).all()
     return render_template('profile.html', username=current_user.username, pitches=pitches)
-
-
-# To prevent users from uploading files with malicious extensions, we use the
-ALLOWED_EXTENSIONS = {'MPG', 'MP4', 'MPEG', 'MPE', 'MPV', 'WEBM' 'OGG',
-                      'AAC', 'WAV', 'WMA', 'MP4', 'AVI', 'MOV', 'WMV', 'FLV', 'SWF', 'M4A'}
-
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].upper() in ALLOWED_EXTENSIONS
 
 
 @main.route('/create_pitch', methods=['GET', 'POST'])

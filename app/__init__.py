@@ -11,8 +11,8 @@ app = Flask(__name__)
 
 
 app.config['SECRET_KEY'] = 'Lkey884'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://kiama:kiamapwd@localhost/Pitches'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://usiznymlengcgv:210e923daec8f1d4466a3530e7b83ff035f84c8846c39034d95015158e1cc077@ec2-34-231-183-74.compute-1.amazonaws.com:5432/d7cfuet145g5q4'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://kiama:kiamapwd@localhost/Pitches'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://usiznymlengcgv:210e923daec8f1d4466a3530e7b83ff035f84c8846c39034d95015158e1cc077@ec2-34-231-183-74.compute-1.amazonaws.com:5432/d7cfuet145g5q4'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 

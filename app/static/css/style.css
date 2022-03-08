@@ -87,8 +87,14 @@ a:active {
   display: flex;
   align-items: center;
 
-  justify-content: right;
+  justify-content: space-between;
   padding: 1rem;
+}
+
+.logo_name a {
+  font-size: 3.5rem;
+  font-family: "Courier New", Courier, monospace;
+  color: black;
 }
 
 .navbar-item {
